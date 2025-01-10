@@ -141,7 +141,7 @@ const codeFiles = [
 const searchParams = new URLSearchParams(location.search)
 const file = searchParams.get("file")
 
-const submissions = []
+let submissions = []
 
 async function loadSubmissions() {
     for (let i = 0; i < codeFiles.length; i++) {
@@ -180,6 +180,8 @@ async function loadSubmissions() {
 
         submissions.push(submission)
     }
+
+    submissions = submissions.sort((a, b) => b["Datetime"] - a["Datetime"]) 
 }
 
 function renderSubmissions() {

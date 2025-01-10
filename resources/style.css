@@ -5,11 +5,29 @@
     padding: 10px;
     width: 80%;
     border: 2px solid black;
-    border-radius: 10px;
 }
 
-.questions-table:nth-child(even) {
-    background-color: lightgray;
+#questions-container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.pagination-container {
+    /* display: flex;
+    justify-content: space-evenly; */
+}
+
+.pagination-container>button {
+    padding: 5x;
+    font-size: 18px;
+
+}
+
+#search-bar {
+    padding: 5px 4px;
+    font-size: 18px;
 }
 
 .question-element {
@@ -62,7 +80,6 @@ h2 {
 
     border: 2px solid black;
     aspect-ratio: 1;
-    background-color: lightgray;
 }
 
 .case-passed {
@@ -82,4 +99,9 @@ pre {
 .hidden {
     display: none
     
+}
+
+#pag-info {
+    font-size: 20px;
+    margin: 5px;
 }
