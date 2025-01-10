@@ -1,4 +1,4 @@
-// Code to retrieve static files
+// Code to retrieve static files from README
 
 // fetch("/README.txt").then(async (response) => {
 //     let text = await response.text();
@@ -93,7 +93,6 @@ function parseTxtFile(text) {
         } else if (!isInExample) {
             if (line.includes("Example")) {
                 isInExample = true
-                question["ProblemStatement"] = problemStatement
             } else {
                 problemStatement += ` ${problemStatement.length > 0 ? '\n' : ''} ${line}`
             }
@@ -109,7 +108,7 @@ function parseTxtFile(text) {
             }
         }
     })
-
+    question["ProblemStatement"] = problemStatement
     question["Examples"] = examples
     question["Metadata"] = metadata
 
@@ -178,7 +177,7 @@ function useState(initialState) {
 const [getPage, setPage] = useState(0)
 const [getMaxPages, setMaxPages] = useState(0)
 const [getFilteredQuestions, setFilteredQuestions] = useState([])
-let perPage = 8
+let perPage = 8  
 
 function renderQuestions() {
 
