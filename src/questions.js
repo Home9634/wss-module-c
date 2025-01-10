@@ -158,39 +158,134 @@ const codeFiles = [
     "bfs_cheng-xi_2021-07-10-19-33-44.txt"
 ]
 
-const questionFils = [
-    [
-        "max-flow.txt",
-        "two-sum.txt",
-        "add-two-numbers.txt",
-        "greedy.txt",
-        "dijkstra.txt",
-        "convex-hull.html",
-        "state-space.txt",
-        "pre-calculation.html",
-        "bfs.txt",
-        "edmons-karp.txt",
-        "koko-eat-bananas.txt",
-        "dfs.txt",
-        "count-change.txt",
-        "longest-subsequence.txt",
-        "tarjans-algorithm.html",
-        "N-queens.txt",
-        "two-pointer.txt",
-        "kahns-algorithm.html",
-        "computational-geometry.html",
-        "sliding-window.txt",
-        "binary-search.txt",
-        "bellman-ford.txt",
-        "dinics.txt",
-        "subtract-two-numbers.txt",
-        "sweep-line.txt",
-        "postfix-expression-evaluation.html",
-        "sudoku-solver.txt",
-        "floyd-warshall.txt",
-        "khans-algorithm.html",
-        "modified-dijkstra.html",
-        "recursion.txt",
-        "movie-ratings.txt",
-    ]
+const questionFiles = [
+    "max-flow.txt",
+    "two-sum.txt",
+    "add-two-numbers.txt",
+    "greedy.txt",
+    "dijkstra.txt",
+    "convex-hull.html",
+    "state-space.txt",
+    "pre-calculation.html",
+    "bfs.txt",
+    "edmons-karp.txt",
+    "koko-eat-bananas.txt",
+    "dfs.txt",
+    "count-change.txt",
+    "longest-subsequence.txt",
+    "tarjans-algorithm.html",
+    "N-queens.txt",
+    "two-pointer.txt",
+    "kahns-algorithm.html",
+    "computational-geometry.html",
+    "sliding-window.txt",
+    "binary-search.txt",
+    "bellman-ford.txt",
+    "dinics.txt",
+    "subtract-two-numbers.txt",
+    "sweep-line.txt",
+    "postfix-expression-evaluation.html",
+    "sudoku-solver.txt",
+    "floyd-warshall.txt",
+    "khans-algorithm.html",
+    "modified-dijkstra.html",
+    "recursion.txt",
+    "movie-ratings.txt",
+
 ]
+
+const questions = {}
+
+function parseTxtFile(text) {
+    text = text.split("\n")
+
+    let question = {}
+    let examples = []
+
+    let isInMetadata = false
+    let isInExample = false
+
+    let currentField = null
+    let currentValue = null
+    let currentExample = 0
+
+    let problemStatement = ''
+
+    text.forEach(line => {
+        if (line.includes("---")) {
+            isInMetadata = !isInMetadata
+        } else if (isInMetadata) {
+            if (line.includes(":")) {
+                if (currentField) {
+                    question[currentField] = currentValue
+                }
+                currentField = line.split(":")[0].trim()
+                currentValue = line.split(":")[1].trim()
+            } else if (currentField) {
+                currentValue += `\n${line}`
+            }
+        } else if (!isInExample) {
+            if (line.includes("Example")) {
+                isInExample = true
+                question["ProblemStatement"] = problemStatement
+            } else {
+                problemStatement += `${problemStatement.length > 0 ? '\n' : ''}${line}`
+            }
+        } else {
+            if (!examples[currentExample]) {
+                examples[currentExample] = ''
+            }
+
+            if (line.includes("Example")) {
+                currentExample++
+            } else {
+                examples[currentExample] += `${examples[currentExample].length > 0 ? '\n' : ''}${line}`
+            }
+        }
+    })
+
+    question["Examples"] = examples
+
+    return question
+}
+
+async function loadQuestions() {
+
+    for (let i = 0; i < questionFiles.length; i++) {
+        const file = questionFiles[i]
+
+        const response = await fetch(`question/${file}`)
+
+        if (!response.ok) {
+            continue
+        }
+
+        const text = await response.text()
+
+        const title = file.split(".")[0]
+
+        if (file.endsWith(".txt")) {
+            let question = parseTxtFile(text)
+            questions[file] = question
+        } else if (file.endsWith('.html')) {
+            questions[file] = {
+                "title": title,
+                "type": "html",
+                "contents": text
+            }
+
+        }
+    }
+
+    console.log(questions)
+    localStorage.setItem("questions", questions)
+}
+
+function renderQuestions() {
+
+}
+
+window.addEventListener("load", async () => {
+    await loadQuestions()
+    renderQuestions()
+})

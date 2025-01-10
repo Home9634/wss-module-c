@@ -1,5 +1,5 @@
 ---
-Description: Solve the N-Queens problem by placing N queens on an N×N chessboard such that no two queens threaten each other.
+Description: Solve the N-Queens problem by placing N queens on an Nï¿½N chessboard such that no two queens threaten each other.
 Title: N Queens
 Setter: Eric
 Submissions: 35000
