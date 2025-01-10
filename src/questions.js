@@ -263,6 +263,8 @@ function filterQuestions() {
     })
 
     setFilteredQuestions(filteredQuestions)
+    setMaxPages(Math.ceil(Math.max(getFilteredQuestions().length / perPage, 1)))
+    setPage(0)
 }
 
 let searchDebounce = null
