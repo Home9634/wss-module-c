@@ -88,14 +88,14 @@ function parseTxtFile(text) {
                 currentField = line.split(":")[0].trim()
                 currentValue = line.split(":")[1].trim()
             } else if (currentField) {
-                currentValue += `\n${line}`
+                currentValue += `\n ${line}`
             }
         } else if (!isInExample) {
             if (line.includes("Example")) {
                 isInExample = true
                 question["ProblemStatement"] = problemStatement
             } else {
-                problemStatement += `${problemStatement.length > 0 ? '\n' : ''} ${line}`
+                problemStatement += ` ${problemStatement.length > 0 ? '\n' : ''} ${line}`
             }
         } else {
             if (!examples[currentExample]) {
@@ -105,7 +105,7 @@ function parseTxtFile(text) {
             if (line.includes("Example")) {
                 currentExample++
             } else if (line.length > 0) {
-                examples[currentExample] += `${examples[currentExample].length > 0 ? '\n' : ''} ${line}`
+                examples[currentExample] += ` ${examples[currentExample].length > 0 ? '\n' : ''} ${line}`
             }
         }
     })

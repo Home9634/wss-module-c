@@ -18,7 +18,7 @@ if (questions.hasOwnProperty(file)) {
         statementHeader.innerHTML = question.Metadata.Title
 
         statementContent.innerHTML = `
-            <div id='statement-description'>${question.Metadata.Description}</div>
+            <div id='statement-description'>${question.Metadata.Description.replaceAll("\n", "<br>")}</div>
         `
 
         Object.keys(question.Metadata).forEach(field => {
@@ -27,7 +27,7 @@ if (questions.hasOwnProperty(file)) {
             } 
 
             statementContent.innerHTML += `
-            <div>${field}: ${question.Metadata[field]}</div>`
+            <div>${field}: ${question.Metadata[field].replaceAll("\n", "<br>")}</div>`
         } )
 
         statementContent.innerHTML += `

@@ -206,8 +206,12 @@ function toggleSubmission(index) {
 }
 
 function getResults(passed, total) {
+    passed = Number(passed)
+    total = Number(total) 
     const failed = total - passed
     let content = ''
+
+    console.log(passed, total)
 
     for (let i = 0; i < passed; i++) {
         content += `<div class="case case-passed"></div>`
@@ -218,6 +222,7 @@ function getResults(passed, total) {
     }
 
     for (let i = passed + 1; i < total; i++) {
+        console.log(i)
         content += `<div class="case case-blank"></div>`
     }
 
