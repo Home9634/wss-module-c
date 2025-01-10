@@ -1,4 +1,85 @@
 .questions-table {
+    display: table;
+    grid-template-columns: 1;
+    margin: 10px;
+    padding: 10px;
+    width: 80%;
+    border: 2px solid black;
+    border-radius: 10px;
+}
+
+.questions-table:nth-child(even) {
+    background-color: lightgray;
+}
+
+.question-element {
+    padding: 10px;
+    font-size: 20px;   
+    cursor: pointer; 
+}
+
+h2 {
+    margin-bottom: 5px;
+}
+
+#statement-content {
+    font-size: 18px;
     display: flex;
+    flex-direction: column;
+    gap: 5px;
+} 
+
+
+#statement-content>br {
+    margin-bottom: 15px;
+}
+
+.example-content {
+    border: 2px solid green;
+    padding: 15px;
+}
+
+#submissions-container {
+    font-size: 18px;
+    display: grid;
+    gap: 15px;
+} 
+
+.submission-title {
+    cursor: pointer
+}
+
+.cases-container {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    gap: 5px;
+    width: 100%;
+}
+
+.case {
+    border-radius: 50%;
+    width: 40%;
+
+    border: 2px solid black;
+    aspect-ratio: 1;
+    background-color: lightgray;
+}
+
+.case-passed {
+    background-color: green;
+}
+
+.case-failed {
+    background-color: red
+}
+
+pre {
+    border: 2px solid black;
+    padding: 10px;
+    font-family: monospace;
+} 
+
+.hidden {
+    display: none
     
 }
